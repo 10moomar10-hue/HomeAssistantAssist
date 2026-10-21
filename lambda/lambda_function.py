@@ -207,7 +207,8 @@ def process_conversation(query):
     
     home_assistant_agent_id = globals().get("home_assistant_agent_id", None)
     home_assistant_language = globals().get("home_assistant_language", None)
-    # Optional fast local agent (e.g. conversation.home_assistant) tried before the main agent,
+    # Optional fast local agent (e.g. conversation.home_assistant) tried before the main agent
+    # (home_assistant_local_timeout seconds, default 6),
     # so sentence-trigger commands answer in under a second and only unmatched text reaches the LLM.
     home_assistant_local_agent_id = globals().get("home_assistant_local_agent_id", None)
 
@@ -238,7 +239,8 @@ def process_conversation(query):
             local_data.pop("conversation_id", None)
             started = datetime.now(timezone.utc)
             try:
-                local_response = requests.post(ha_api_url, headers=headers, json=local_data, timeout=3)
+                local_timeout = float(globals().get("home_assistant_local_timeout", 6))
+                local_response = requests.post(ha_api_url, headers=headers, json=local_data, timeout=local_timeout)
                 local_result = local_response.json().get("response", {}) if local_response.status_code == 200 else {}
                 if local_result.get("response_type") in ("action_done", "query_answer"):
                     logger.debug(f"Handled by local agent: {local_response.text}")
