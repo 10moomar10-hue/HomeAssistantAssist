@@ -1,0 +1,15 @@
+echo_screen_welcome_text=أهلاً بك في Home Assistant!
+echo_screen_click_text=اضغط على الزر بالأسفل لفتح لوحة التحكم
+echo_screen_button_text=افتح Home Assistant
+
+alexa_speak_welcome_message=أهلاً! أنا مساعد البيت، كيف أقدر أساعدك؟
+alexa_speak_next_message=أهلاً مرة ثانية، كيف أقدر أساعدك الآن؟
+alexa_speak_question=تحتاج شيء ثاني؟
+alexa_speak_help=كيف أقدر أساعدك؟
+alexa_speak_exit=مع السلامة!;إلى اللقاء;لو احتجتني أنا موجود;تمام، أشوفك بعدين;في أمان الله
+alexa_speak_error=عذراً، ما قدرت أنفذ طلبك.
+alexa_speak_timeout=المساعد تأخر في الرد. جرّب أمر أبسط مرة ثانية!
+alexa_speak_open_dashboard=جاري فتح Home Assistant
+
+keywords_to_open_dashboard=افتح لوحة التحكم;افتح هوم اسيستنت
+keywords_to_close_skill=لا;لا شكرا;شكرا;خلاص;بس كذا;مع السلامة

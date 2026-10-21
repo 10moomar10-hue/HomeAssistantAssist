@@ -262,7 +262,6 @@
             "Zet de airconditioning op kantoor aan"
           ]
         },
-        
         "pt-BR": {
           "name": "Home Assistant Assist",
           "summary": "Controle sua casa inteligente interagindo com o Assist do Home Assistant.",
@@ -285,6 +284,18 @@
             "Alexa, abrir home assistant",
             "Desligue a luz da cozinha",
             "Ligue o ar do escritório"
+          ]
+        },
+        "ar-SA": {
+          "name": "مساعد البيت",
+          "summary": "تحكم في بيتك الذكي من خلال مساعد Home Assistant.",
+          "description": "هذه المهارة تتيح لك التحدث مع مساعد Home Assistant Assist عبر واجهة المحادثة.",
+          "smallIconUri": "file://assets/images/common_smallIconUri.png",
+          "largeIconUri": "file://assets/images/common_largeIconUri.png",
+          "examplePhrases": [
+            "أليكسا، افتح مساعد البيت",
+            "شغل التلفزيون",
+            "افتح تيفي ميت"
           ]
         }
       },

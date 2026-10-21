@@ -1,0 +1,61 @@
+{
+  "interactionModel": {
+      "languageModel": {
+          "invocationName": "مساعد البيت",
+          "intents": [
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
+                  "samples": []
+              },
+              {
+                  "name": "GptQueryIntent",
+                  "slots": [
+                      {
+                          "name": "query",
+                          "type": "FREE_TEXT"
+                      }
+                  ],
+                  "samples": [
+                      "{query}"
+                  ]
+              },
+              {
+                  "name": "AMAZON.FallbackIntent",
+                  "samples": []
+              }
+          ],
+          "types": [
+              {
+                  "name": "FREE_TEXT",
+                  "values": [
+                      {"name": {"value": "شغل التلفزيون"}},
+                      {"name": {"value": "اقفل التلفزيون"}},
+                      {"name": {"value": "افتح تيفي ميت"}},
+                      {"name": {"value": "افتح يوتيوب"}},
+                      {"name": {"value": "علي الصوت"}},
+                      {"name": {"value": "وطي الصوت"}},
+                      {"name": {"value": "حول على البلايستيشن"}},
+                      {"name": {"value": "شغل شاشة التوقف"}},
+                      {"name": {"value": "اقفل التلفزيون بعد ساعة"}},
+                      {"name": {"value": "دور في يوتيوب على عمرو دياب"}},
+                      {"name": {"value": "ايه اللي شغال على التلفزيون"}},
+                      {"name": {"value": "كم درجة الحرارة اليوم"}},
+                      {"name": {"value": "مين أطول برج في العالم"}}
+                  ]
+              }
+          ]
+      }
+  }
+}

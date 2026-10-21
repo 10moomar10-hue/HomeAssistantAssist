@@ -207,7 +207,10 @@ def process_conversation(query):
     
     home_assistant_agent_id = globals().get("home_assistant_agent_id", None)
     home_assistant_language = globals().get("home_assistant_language", None)
-        
+    # Optional fast local agent (e.g. conversation.home_assistant) tried before the main agent,
+    # so sentence-trigger commands answer in under a second and only unmatched text reaches the LLM.
+    home_assistant_local_agent_id = globals().get("home_assistant_local_agent_id", None)
+
     try:
         headers = {
             "Authorization": "Bearer {}".format(globals().get("home_assistant_token")),
@@ -225,11 +228,28 @@ def process_conversation(query):
             data["conversation_id"] = conversation_id
 
         ha_api_url = "{}/api/conversation/process".format(home_assistant_url)
-        logger.debug(f"HA request url: {ha_api_url}")        
+        logger.debug(f"HA request url: {ha_api_url}")
         logger.debug(f"HA request data: {data}")
-        
-        response = requests.post(ha_api_url, headers=headers, json=data, timeout=7)
-        
+
+        # Alexa-hosted skills allow 8 seconds in total; keep the overall budget at 7
+        main_timeout = 7
+        if home_assistant_local_agent_id and home_assistant_local_agent_id != home_assistant_agent_id:
+            local_data = dict(data, agent_id=home_assistant_local_agent_id)
+            local_data.pop("conversation_id", None)
+            started = datetime.now(timezone.utc)
+            try:
+                local_response = requests.post(ha_api_url, headers=headers, json=local_data, timeout=3)
+                local_result = local_response.json().get("response", {}) if local_response.status_code == 200 else {}
+                if local_result.get("response_type") in ("action_done", "query_answer"):
+                    logger.debug(f"Handled by local agent: {local_response.text}")
+                    return improve_response(local_result["speech"]["plain"]["speech"])
+            except (requests.exceptions.RequestException, ValueError) as le:
+                logger.debug(f"Local agent did not handle the request: {str(le)}")
+            elapsed = (datetime.now(timezone.utc) - started).total_seconds()
+            main_timeout = max(1, 7 - elapsed)
+
+        response = requests.post(ha_api_url, headers=headers, json=data, timeout=main_timeout)
+
         logger.debug(f"HA response status: {response.status_code}")
         logger.debug(f"HA response data: {response.text}")
         
