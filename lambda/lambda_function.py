@@ -41,7 +41,7 @@ load_config("config.cfg")
 load_config("locale/en-US.lang")
 
 # Log configuration
-debug = bool(globals().get("debug", False))
+debug = str(globals().get("debug", "False")).strip().lower() == "true"
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG if debug else logging.INFO)
 
